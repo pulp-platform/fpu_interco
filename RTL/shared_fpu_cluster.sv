@@ -52,8 +52,8 @@ module shared_fpu_cluster
    parameter NB_CORE_ARGS      = 3,
 
    parameter CORE_DATA_WIDTH   = 32,
-   parameter CORE_OPCODE_WIDTH = 6, 
-   parameter CORE_DSFLAGS_CPU  = 15, 
+   parameter CORE_OPCODE_WIDTH = 6,
+   parameter CORE_DSFLAGS_CPU  = 15,
    parameter CORE_USFLAGS_CPU  = 5,
 
    parameter NB_APU_ARGS        = 2,
@@ -69,10 +69,10 @@ module shared_fpu_cluster
    parameter APUTYPE_ID       = 1, // ID is 5 in MrWolf
    parameter FPNEWTYPE_ID     = 0,
 
-   parameter C_FPNEW_FMTBITS  = 3,
-   parameter C_FPNEW_IFMTBITS = 2,
+   parameter C_FPNEW_FMTBITS  = fpnew_pkg::FP_FORMAT_BITS,
+   parameter C_FPNEW_IFMTBITS = fpnew_pkg::INT_FORMAT_BITS,
    parameter C_ROUND_BITS     = 3,
-   parameter C_FPNEW_OPBITS   = 4,
+   parameter C_FPNEW_OPBITS   = fpnew_pkg::OP_BITS,
 
    parameter USE_FPU_OPT_ALLOC   = "FALSE", // IF NB_APUS  == 1 --> SET to FALSE
    parameter USE_FPNEW_OPT_ALLOC = "TRUE",  // IF NB_FPNEW == 1 --> SET to FALSE
@@ -183,7 +183,7 @@ module shared_fpu_cluster
   generate
     for(i=0;i<NB_CORES;i++)
     begin : FPU_DEMUX
-        fpu_demux 
+        fpu_demux
         #(
             .DATA_WIDTH          ( CORE_DATA_WIDTH    ),
             .FP_TYPE_WIDTH       ( FP_TYPE_WIDTH      ),  //= 5,
@@ -256,7 +256,7 @@ module shared_fpu_cluster
            .fpnew_rflags_i        ( s_fpnew_master_rflags    [i]    )
         );
     end
-    
+
   endgenerate
 
 
@@ -281,7 +281,7 @@ generate
     end
     else
     begin : SHARED_FPU
-         XBAR_FPU 
+         XBAR_FPU
          #(
              .NB_CORES          ( NB_CORES          ), //= 8,
              .NB_APUS           ( NB_APUS           ), //= 1,
@@ -291,7 +291,7 @@ generate
              .APU_DSFLAGS_CPU   ( APU_DSFLAGS_CPU   ), //= 2,
              .APU_USFLAGS_CPU   ( APU_USFLAGS_CPU   ), //= 2,
              .ID_WIDTH          ( APU_ID_WIDTH      ),
-             .USE_OPT_ALLOC     ( USE_FPU_OPT_ALLOC )       
+             .USE_OPT_ALLOC     ( USE_FPU_OPT_ALLOC )
          )
          i_XBAR_APU
          (
@@ -351,7 +351,7 @@ generate
   begin : SHARED_FPNEW
     if(FPNEW_INTECO_TYPE == "SINGLE_INTERCO")
     begin : SINGLE_INTERCO
-         XBAR_FPU 
+         XBAR_FPU
          #(
              .NB_CORES          ( NB_CORES            ), //= 9,
              .NB_APUS           ( NB_FPNEW            ), //= 1,
@@ -396,7 +396,7 @@ generate
     end
     else
     begin : CUSTOM_INTERCO
-           XBAR_FPU 
+           XBAR_FPU
            #(
                .NB_CORES          ( 2                  ), //= 9,
                .NB_APUS           ( 1                  ), //= 1,
@@ -439,7 +439,7 @@ generate
            );
 
 
-           XBAR_FPU 
+           XBAR_FPU
            #(
                .NB_CORES          ( 2                  ), //= 9,
                .NB_APUS           ( 1                  ), //= 1,
@@ -448,7 +448,7 @@ generate
                .APU_OPCODE_WIDTH  ( FPNEW_OPCODE_WIDTH ), //= 2,
                .APU_DSFLAGS_CPU   ( FPNEW_DSFLAGS_CPU  ), //= 2,
                .APU_USFLAGS_CPU   ( FPNEW_USFLAGS_CPU  ),  //= 2,
-               .ID_WIDTH          ( FPNEW_ID_WIDTH     )       
+               .ID_WIDTH          ( FPNEW_ID_WIDTH     )
            )
            i_XBAR_FPNEW_1_5
            (
@@ -482,7 +482,7 @@ generate
            );
 
 
-           XBAR_FPU 
+           XBAR_FPU
            #(
                .NB_CORES          ( 2                  ), //= 9,
                .NB_APUS           ( 1                  ), //= 1,
@@ -491,7 +491,7 @@ generate
                .APU_OPCODE_WIDTH  ( FPNEW_OPCODE_WIDTH ), //= 2,
                .APU_DSFLAGS_CPU   ( FPNEW_DSFLAGS_CPU  ), //= 2,
                .APU_USFLAGS_CPU   ( FPNEW_USFLAGS_CPU  ),  //= 2,
-               .ID_WIDTH          ( FPNEW_ID_WIDTH     )       
+               .ID_WIDTH          ( FPNEW_ID_WIDTH     )
            )
            i_XBAR_FPNEW_2_6
            (
@@ -525,7 +525,7 @@ generate
            );
 
 
-           XBAR_FPU 
+           XBAR_FPU
            #(
                .NB_CORES          ( 3                  ), //= 9,
                .NB_APUS           ( 1                  ), //= 1,
@@ -534,7 +534,7 @@ generate
                .APU_OPCODE_WIDTH  ( FPNEW_OPCODE_WIDTH ), //= 2,
                .APU_DSFLAGS_CPU   ( FPNEW_DSFLAGS_CPU  ), //= 2,
                .APU_USFLAGS_CPU   ( FPNEW_USFLAGS_CPU  ),  //= 2,
-               .ID_WIDTH          ( FPNEW_ID_WIDTH     )       
+               .ID_WIDTH          ( FPNEW_ID_WIDTH     )
            )
            i_XBAR_FPNEW_3_7_8
            (
@@ -567,7 +567,7 @@ generate
                .apu_master_rID_i      ( s_fpnew_slave_rID      [3]     )
            );
     end
-      
+
   end
 
 endgenerate
@@ -614,7 +614,7 @@ endgenerate
             .apu_rdata_o    ( s_apu_slave_rdata    [j] ),
             .apu_rflags_o   ( s_apu_slave_rflags   [j] ),
             .apu_rID_o      ( s_apu_slave_rID      [j] )
-         );       
+         );
       end
 
 
@@ -657,7 +657,7 @@ endgenerate
             .apu_rdata_o    ( s_fpnew_slave_rdata    [j] ),
             .apu_rflags_o   ( s_fpnew_slave_rflags   [j] ),
             .apu_rID_o      ( s_fpnew_slave_rID      [j] )
-         );       
+         );
       end
 
    endgenerate

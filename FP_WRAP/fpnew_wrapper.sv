@@ -81,7 +81,7 @@ module fpnew_wrapper
    output logic [FLAGS_OUT_WIDTH-1:0]             apu_rflags_o,
    output logic [ID_WIDTH-1:0]                    apu_rID_o // not used
 );
-      
+
    `ifdef DUMMY_FPNEW
          always_ff @(posedge clk or negedge rst_n)
          begin : proc_
@@ -103,18 +103,18 @@ module fpnew_wrapper
 
         localparam C_DIV = FP_DIVSQRT ? fpnew_pkg::MERGED : fpnew_pkg::DISABLED;
 
-         logic [C_FPNEW_OPBITS-1:0]           fpu_op;
-         logic                                fpu_op_mod;
-         logic                                fpu_vec_op;
+         logic [C_FPNEW_OPBITS-1:0]   fpu_op;
+         logic                        fpu_op_mod;
+         logic                        fpu_vec_op;
 
-         logic [C_FPNEW_FMTBITS-1:0]          fpu_fmt;
-         logic [C_FPNEW_FMTBITS-1:0]          fpu_fmt2;
-         logic [C_FPNEW_IFMTBITS-1:0]         fpu_ifmt;
-         logic [C_ROUND_BITS-1:0]             fp_rnd_mode;
+         logic [C_FPNEW_FMTBITS-1:0]  dst_fmt;
+         logic [C_FPNEW_FMTBITS-1:0]  src_fmt;
+         logic [C_FPNEW_IFMTBITS-1:0] int_fmt;
+         logic [C_ROUND_BITS-1:0]     fp_rnd_mode;
 
          // assign apu_rID_o = '0;
          assign {fpu_vec_op, fpu_op_mod, fpu_op} = apu_op_i;
-         assign {fpu_ifmt, fpu_fmt2, fpu_fmt, fp_rnd_mode} = apu_flags_i;
+         assign {int_fmt, src_fmt, dst_fmt, fp_rnd_mode} = apu_flags_i;
 
 
         // -----------
@@ -136,7 +136,7 @@ module fpnew_wrapper
                        '{default: C_LAT_DIVSQRT}, // DIVSQRT
                        '{default: C_LAT_NONCOMP}, // NONCOMP
                        '{default: C_LAT_CONV}},   // CONV
-          UnitTypes: '{'{default: fpnew_pkg::PARALLEL}, // ADDMUL
+          UnitTypes: '{'{default: fpnew_pkg::MERGED}, // ADDMUL
                        '{default: C_DIV},               // DIVSQRT
                        '{default: fpnew_pkg::PARALLEL}, // NONCOMP
                        '{default: fpnew_pkg::MERGED}},  // CONV
@@ -147,9 +147,9 @@ module fpnew_wrapper
         // FPU instance
         //---------------
         fpnew_top #(
-          .Features      ( FPU_FEATURES         ),
-          .Implementaion ( FPU_IMPLEMENTATION   ),
-          .TagType       ( logic [ID_WIDTH-1:0] )
+          .Features       ( FPU_FEATURES         ),
+          .Implementation ( FPU_IMPLEMENTATION   ),
+          .TagType        ( logic [ID_WIDTH-1:0] )
         ) i_fpnew (
           .clk_i          ( clk                                  ),
           .rst_ni         ( rst_n                                ),
@@ -157,9 +157,9 @@ module fpnew_wrapper
           .rnd_mode_i     ( fpnew_pkg::roundmode_e'(fp_rnd_mode) ),
           .op_i           ( fpnew_pkg::operation_e'(fpu_op)      ),
           .op_mod_i       ( fpu_op_mod                           ),
-          .fp_fmt_i       ( fpnew_pkg::fp_format_e'(fpu_fmt)     ),
-          .fp_fmt2_i      ( fpnew_pkg::fp_format_e'(fpu_fmt2)    ),
-          .int_fmt_i      ( fpnew_pkg::int_format_e'(fpu_ifmt)   ),
+          .src_fmt_i      ( fpnew_pkg::fp_format_e'(src_fmt)     ),
+          .dst_fmt_i      ( fpnew_pkg::fp_format_e'(dst_fmt)     ),
+          .int_fmt_i      ( fpnew_pkg::int_format_e'(int_fmt)    ),
           .vectorial_op_i ( fpu_vec_op                           ),
           .tag_i          ( apu_ID_i                             ),
           .in_valid_i     ( apu_req_i                            ),
