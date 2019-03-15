@@ -527,7 +527,7 @@ generate
 
            XBAR_FPU 
            #(
-               .NB_CORES          ( 3                  ), //= 9,
+               .NB_CORES          ( 2                  ), //= 9,
                .NB_APUS           ( 1                  ), //= 1,
                .NB_APU_ARGS       ( NB_FPNEW_ARGS      ), //= 2,
                .APU_DATA_WIDTH    ( CORE_DATA_WIDTH    ), //= 32,
@@ -536,21 +536,21 @@ generate
                .APU_USFLAGS_CPU   ( FPNEW_USFLAGS_CPU  ),  //= 2,
                .ID_WIDTH          ( FPNEW_ID_WIDTH     )       
            )
-           i_XBAR_FPNEW_3_7_8
+           i_XBAR_FPNEW_3_7
            (
                .clk                   ( clk                   ),
                .rst_n                 ( rst_n                 ),
 
                // CORE SIDE: Slave port
-               .apu_slave_req_i       ( { s_fpnew_master_req      [8:7], s_fpnew_master_req      [3]  }  ),
-               .apu_slave_gnt_o       ( { s_fpnew_master_gnt      [8:7], s_fpnew_master_gnt      [3]  }  ),
-               .apu_slave_operands_i  ( { s_fpnew_master_operands [8:7], s_fpnew_master_operands [3]  }  ),
-               .apu_slave_op_i        ( { s_fpnew_master_op       [8:7], s_fpnew_master_op       [3]  }  ),
-               .apu_slave_flags_i     ( { s_fpnew_master_flags    [8:7], s_fpnew_master_flags    [3]  }  ),
-               .apu_slave_ready_i     ( { s_fpnew_master_rready   [8:7], s_fpnew_master_rready   [3]  }  ),
-               .apu_slave_rvalid_o    ( { s_fpnew_master_rvalid   [8:7], s_fpnew_master_rvalid   [3]  }  ),
-               .apu_slave_rdata_o     ( { s_fpnew_master_rdata    [8:7], s_fpnew_master_rdata    [3]  }  ),
-               .apu_slave_rflags_o    ( { s_fpnew_master_rflags   [8:7], s_fpnew_master_rflags   [3]  }  ),
+               .apu_slave_req_i       ( { s_fpnew_master_req      [7], s_fpnew_master_req      [3]  }  ),
+               .apu_slave_gnt_o       ( { s_fpnew_master_gnt      [7], s_fpnew_master_gnt      [3]  }  ),
+               .apu_slave_operands_i  ( { s_fpnew_master_operands [7], s_fpnew_master_operands [3]  }  ),
+               .apu_slave_op_i        ( { s_fpnew_master_op       [7], s_fpnew_master_op       [3]  }  ),
+               .apu_slave_flags_i     ( { s_fpnew_master_flags    [7], s_fpnew_master_flags    [3]  }  ),
+               .apu_slave_ready_i     ( { s_fpnew_master_rready   [7], s_fpnew_master_rready   [3]  }  ),
+               .apu_slave_rvalid_o    ( { s_fpnew_master_rvalid   [7], s_fpnew_master_rvalid   [3]  }  ),
+               .apu_slave_rdata_o     ( { s_fpnew_master_rdata    [7], s_fpnew_master_rdata    [3]  }  ),
+               .apu_slave_rflags_o    ( { s_fpnew_master_rflags   [7], s_fpnew_master_rflags   [3]  }  ),
 
 
                // APU Side: Master port
