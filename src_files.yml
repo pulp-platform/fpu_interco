@@ -38,7 +38,11 @@ fpu_interco_cluster_cadence:
   ]
   synth_tools: [
     genus
-  ]    
+  ]
+  jg_inclibs: [
+    fpnew,
+    riscv,
+  ]
   incdirs: [
         ../riscv/rtl/include,
   ]
