@@ -64,17 +64,4 @@ fpu_interco_cluster_cadence:
         RTL/shared_fpu_cluster.sv,
         RTL/fpu_demux.sv,
         RTL/XBAR_FPU.sv,
-  ]
-  jg_slint_top_name: [
-    shared_fpu_cluster
-  ]
-  jg_slint_elab_opt: [
-  ]
-  jg_slint_postelab_cmds: [
-  ]
-  jg_slint_clocks: [
-    clk,
-  ]
-  jg_slint_resets: [
-    ~rst_n,
-  ]
+]
