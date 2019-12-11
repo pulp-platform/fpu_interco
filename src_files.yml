@@ -1,10 +1,4 @@
-fpu_interco_cluster_mentor:
-  sim_tools: [
-    questa
-  ]
-  synth_tools: [
-    mentor  
-  ]
+fpu_interco:
   vlog_opts: [
     -L fpnew_lib,
   ]
@@ -31,50 +25,3 @@ fpu_interco_cluster_mentor:
         RTL/fpu_demux.sv,
         RTL/XBAR_FPU.sv,
 ]
-
-fpu_interco_cluster_cadence:
-  sim_tools: [
-    xcelium
-  ]
-  synth_tools: [
-    genus
-  ]
-  jg_inclibs: [
-    fpnew,
-    riscv,
-  ]
-  incdirs: [
-        ../riscv/rtl/include,
-  ]
-  files: [
-        FP_WRAP/fp_iter_divsqrt_msv_wrapper_2_STAGE.sv,
-        FP_WRAP/fpnew_wrapper.sv,
-        RTL/AddressDecoder_Req_FPU.sv,
-        RTL/AddressDecoder_Resp_FPU.sv,
-        RTL/ArbitrationTree_FPU.sv,
-        RTL/FanInPrimitive_Req_FPU.sv,
-        RTL/FanInPrimitive_Resp_FPU.sv,
-        RTL/optimal_alloc.sv,
-        RTL/FPU_clock_gating.sv,
-        RTL/LFSR_FPU.sv,
-        RTL/RequestBlock_FPU.sv,
-        RTL/ResponseBlock_FPU.sv,
-        RTL/ResponseTree_FPU.sv,
-        RTL/RR_Flag_Req_FPU.sv,
-        RTL/shared_fpu_cluster.sv,
-        RTL/fpu_demux.sv,
-        RTL/XBAR_FPU.sv,
-  ]
-  jg_slint_top_name: [
-    shared_fpu_cluster
-  ]
-  jg_slint_elab_opt: [
-  ]
-  jg_slint_postelab_cmds: [
-  ]
-  jg_slint_clocks: [
-    clk,
-  ]
-  jg_slint_resets: [
-    ~rst_n,
-  ]
