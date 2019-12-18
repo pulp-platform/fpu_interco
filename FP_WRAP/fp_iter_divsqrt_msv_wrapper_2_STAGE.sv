@@ -78,7 +78,7 @@ module fp_iter_divsqrt_msv_wrapper_2_STAGE
    logic                 div_zero;
    logic                 exp_of;
    logic                 exp_uf;
-   
+
    logic [NB_ARGS-1:0][DATA_WIDTH-1:0]   apu_operands_Q;
    logic [OPCODE_WIDTH-1:0]              apu_op_Q;
    logic [FLAGS_IN_WIDTH-1:0]            apu_flags_Q;
@@ -100,23 +100,23 @@ module fp_iter_divsqrt_msv_wrapper_2_STAGE
 
   div_sqrt_top_mvp i_fp_iter_divsqrt_msv_wrapper_2_STAGE
   (
-   .Clk_CI           ( clk                                 ), //input logic                            
-   .Rst_RBI          ( rst_n                               ), //input logic                            
-   .Div_start_SI     ( div_start                           ), //input logic                            
-   .Sqrt_start_SI    ( sqrt_start                          ), //input logic                            
-   .Operand_a_DI     ( {32'h0000_0000, apu_operands_Q[0]}  ), //input logic [C_OP_FP64-1:0]  // FIXME IS OK for 32bit only        
-   .Operand_b_DI     ( {32'h0000_0000, apu_operands_Q[1]}  ), //input logic [C_OP_FP64-1:0]  // FIXME IS OK for 32bit only        
-   .RM_SI            ( apu_flags_Q[2:0]                    ), //input logic [C_RM-1:0]  // Rounding Mode   
-   .Precision_ctl_SI ( '0                                  ), //input logic [C_PC-1:0]  // Precision Control 
+   .Clk_CI           ( clk                                 ), //input logic
+   .Rst_RBI          ( rst_n                               ), //input logic
+   .Div_start_SI     ( div_start                           ), //input logic
+   .Sqrt_start_SI    ( sqrt_start                          ), //input logic
+   .Operand_a_DI     ( {32'h0000_0000, apu_operands_Q[0]}  ), //input logic [C_OP_FP64-1:0]  // FIXME IS OK for 32bit only
+   .Operand_b_DI     ( {32'h0000_0000, apu_operands_Q[1]}  ), //input logic [C_OP_FP64-1:0]  // FIXME IS OK for 32bit only
+   .RM_SI            ( apu_flags_Q[2:0]                    ), //input logic [C_RM-1:0]  // Rounding Mode
+   .Precision_ctl_SI ( '0                                  ), //input logic [C_PC-1:0]  // Precision Control
 
    .Format_sel_SI    ( apu_flags_Q[4:3]                    ), //input logic [C_FS-1:0]  // Format Selection,
-   .Kill_SI          ( 1'b0                                ), //input logic                            
+   .Kill_SI          ( 1'b0                                ), //input logic
 
-   .Result_DO        ( apu_rdata_int                       ), //output logic [C_OP_FP64-1:0]           
+   .Result_DO        ( apu_rdata_int                       ), //output logic [C_OP_FP64-1:0]
 
-   .Fflags_SO        ( apu_rflags_int[4:0]                 ), //output logic [4:0]                     
-   .Ready_SO         ( apu_gnt_int                         ), //output logic                           
-   .Done_SO          ( apu_rvalid_int                      )  //output logic                           
+   .Fflags_SO        ( apu_rflags_int[4:0]                 ), //output logic [4:0]
+   .Ready_SO         ( apu_gnt_int                         ), //output logic
+   .Done_SO          ( apu_rvalid_int                      )  //output logic
  );
 
 
@@ -140,8 +140,8 @@ module fp_iter_divsqrt_msv_wrapper_2_STAGE
             apu_rdata_pipe_Q   <= '0;
             apu_rflags_pipe_Q  <= '0;
             apu_rID_pipe_Q     <= '0;
-         end 
-         else 
+         end
+         else
          begin
             CS <= NS;
             if(sample_data)
@@ -181,7 +181,7 @@ module fp_iter_divsqrt_msv_wrapper_2_STAGE
 
           if(apu_req_i & apu_gnt_o )
             NS = INIT_FPU;
-          
+
         end
 
         INIT_FPU:
@@ -205,5 +205,5 @@ module fp_iter_divsqrt_msv_wrapper_2_STAGE
         end
       endcase // CS
    end
-   
+
 endmodule
