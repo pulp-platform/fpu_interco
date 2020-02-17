@@ -6,7 +6,7 @@ fpu_interco:
         ../riscv_nn/rtl/include,
   ]    
   files: [
-        ../riscv_nn/rtl/include/riscv_defines.sv,
+        ../riscv_nn/rtl/include/riscv_nn_defines.sv,
         FP_WRAP/fp_iter_divsqrt_msv_wrapper_2_STAGE.sv,
         FP_WRAP/fpnew_wrapper.sv,
         RTL/AddressDecoder_Req_FPU.sv,
