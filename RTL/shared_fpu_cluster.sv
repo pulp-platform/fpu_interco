@@ -80,9 +80,11 @@ module shared_fpu_cluster
    parameter FPNEW_INTECO_TYPE = "SINGLE_INTERCO" // CUSTOM | SINGLE_INTERCO
 )
 (
-   input logic                                                        clk,
-   input logic                                                        rst_n,
-   input logic                                                        test_mode_i,
+   input  logic                                                       clk,
+   input  logic                                                       rst_n,
+   input  logic                                                       test_mode_i,
+
+   input  logic                                                       auto_cg_en_i,
 
    // CORE SIDE: Slave port
    input  logic [NB_CORES-1:0]                                        core_slave_req_i,
@@ -90,9 +92,9 @@ module shared_fpu_cluster
    input  logic [NB_CORES-1:0][FP_TYPE_WIDTH-1:0]                     core_slave_type_i,
 
    // request channel
-   input logic [NB_CORES-1:0][NB_CORE_ARGS-1:0][CORE_DATA_WIDTH-1:0]  core_slave_operands_i,
-   input logic [NB_CORES-1:0][CORE_OPCODE_WIDTH-1:0]                  core_slave_op_i,
-   input logic [NB_CORES-1:0][CORE_DSFLAGS_CPU-1:0]                   core_slave_flags_i,
+   input  logic [NB_CORES-1:0][NB_CORE_ARGS-1:0][CORE_DATA_WIDTH-1:0] core_slave_operands_i,
+   input  logic [NB_CORES-1:0][CORE_OPCODE_WIDTH-1:0]                 core_slave_op_i,
+   input  logic [NB_CORES-1:0][CORE_DSFLAGS_CPU-1:0]                  core_slave_flags_i,
 
    // response channel
    input  logic [NB_CORES-1:0]                                        core_slave_rready_i,
@@ -675,7 +677,7 @@ endgenerate
        .clk                           ( clk                       ),
        .rst_n                         ( rst_n                     ),
 
-       .automatic_clock_gate_enable_i ( 1'b1                      ),
+       .automatic_clock_gate_enable_i ( auto_cg_en_i              ),
 
        .fpu_req_in_i                  ( s_apu_slave_req           ),
        .fpu_gnt_out_i                 ( s_apu_slave_gnt           ),
