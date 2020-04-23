@@ -42,7 +42,7 @@
 
 
 
-import riscv_nn_defines::*;
+import riscv_defines::*;
 // `define DUMMY_FPNEW
 
 module fpnew_wrapper
