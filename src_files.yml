@@ -3,16 +3,16 @@ fpu_interco_cluster_mentor:
     questa
   ]
   synth_tools: [
-    mentor  
+    mentor
   ]
   vlog_opts: [
     -L fpnew_lib,
   ]
   incdirs: [
-        ../riscv/rtl/include,
-  ]    
+        ../cv32e40p/rtl/include,
+  ]
   files: [
-        ../riscv/rtl/include/riscv_defines.sv,
+        ../cv32e40p/rtl/include/cv32e40p_defines.sv,
         FP_WRAP/fp_iter_divsqrt_msv_wrapper_2_STAGE.sv,
         FP_WRAP/fpnew_wrapper.sv,
         RTL/AddressDecoder_Req_FPU.sv,
@@ -38,9 +38,9 @@ fpu_interco_cluster_cadence:
   ]
   synth_tools: [
     genus
-  ]    
+  ]
   incdirs: [
-        ../riscv/rtl/include,
+        ../cv32e40p/rtl/include,
   ]
   files: [
         FP_WRAP/fp_iter_divsqrt_msv_wrapper_2_STAGE.sv,
