@@ -4,9 +4,9 @@ fpu_interco:
   ]
   incdirs: [
         ../cv32e40p/rtl/include,
-  ]    
+  ]
   files: [
-        ../cv32e40p/rtl/include/cv32e40p_defines.sv,
+        ../cv32e40p/rtl/include/cv32e40p_pkg.sv,
         FP_WRAP/fp_iter_divsqrt_msv_wrapper_2_STAGE.sv,
         FP_WRAP/fpnew_wrapper.sv,
         RTL/AddressDecoder_Req_FPU.sv,
