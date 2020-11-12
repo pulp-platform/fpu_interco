@@ -4,7 +4,6 @@ package:
     - "Igor Loi <igor.loi@greenwaves-technologies.com>"
     - "Stefan Mach <smach@iis.ee.ethz.ch>"
     - "Florent Rotenberg <florent.rotenberg@greenwaves-technologies.com>"
-    - "Andreas Kurth <akurth@iis.ee.ethz.ch>"
     - "Francesco Conti <f.conti@unibo.it>"
 
 dependencies:
