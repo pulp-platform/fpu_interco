@@ -1,0 +1,30 @@
+package: 
+  name: fpu_interco
+  authors: 
+    - "Igor Loi <igor.loi@greenwaves-technologies.com>"
+    - "Stefan Mach <smach@iis.ee.ethz.ch>"
+    - "Florent Rotenberg <florent.rotenberg@greenwaves-technologies.com>"
+    - "Francesco Conti <f.conti@unibo.it>"
+
+dependencies:
+  fpnew: { git: "git@github.com:pulp-platform/fpnew.git", version: 0.6.4 }
+  riscv: { git: "git@github.com:micprog/cv32e40p.git", rev: "pulpissimo-v3.4.1"} # To be updated to openhwgroup repository
+
+sources:
+  - FP_WRAP/fp_iter_divsqrt_msv_wrapper_2_STAGE.sv
+  - FP_WRAP/fpnew_wrapper.sv
+  - RTL/AddressDecoder_Req_FPU.sv
+  - RTL/AddressDecoder_Resp_FPU.sv
+  - RTL/ArbitrationTree_FPU.sv
+  - RTL/FanInPrimitive_Req_FPU.sv
+  - RTL/FanInPrimitive_Resp_FPU.sv
+  - RTL/optimal_alloc.sv
+  - RTL/FPU_clock_gating.sv
+  - RTL/LFSR_FPU.sv
+  - RTL/RequestBlock_FPU.sv
+  - RTL/ResponseBlock_FPU.sv
+  - RTL/ResponseTree_FPU.sv
+  - RTL/RR_Flag_Req_FPU.sv
+  - RTL/shared_fpu_cluster.sv
+  - RTL/fpu_demux.sv
+  - RTL/XBAR_FPU.sv
