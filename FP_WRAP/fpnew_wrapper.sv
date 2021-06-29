@@ -136,10 +136,10 @@ module fpnew_wrapper
                        '{default: C_LAT_DIVSQRT}, // DIVSQRT
                        '{default: C_LAT_NONCOMP}, // NONCOMP
                        '{default: C_LAT_CONV}},   // CONV
-          UnitTypes: '{'{default: fpnew_pkg::MERGED}, // ADDMUL
+          UnitTypes: '{'{default: fpnew_pkg::PARALLEL}, // ADDMUL
                        '{default: C_DIV},               // DIVSQRT
                        '{default: fpnew_pkg::PARALLEL}, // NONCOMP
-                       '{default: fpnew_pkg::MERGED}},  // CONV
+                       '{default: fpnew_pkg::PARALLEL}},  // CONV
           PipeConfig: fpnew_pkg::BEFORE
         };
 
