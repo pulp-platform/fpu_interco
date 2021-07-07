@@ -139,8 +139,8 @@ module fpnew_wrapper
           UnitTypes: '{'{default: fpnew_pkg::PARALLEL}, // ADDMUL
                        '{default: C_DIV},               // DIVSQRT
                        '{default: fpnew_pkg::PARALLEL}, // NONCOMP
-                       '{default: fpnew_pkg::PARALLEL}},  // CONV
-          PipeConfig: fpnew_pkg::BEFORE
+                       '{default: fpnew_pkg::MERGED}},  // CONV
+          PipeConfig: fpnew_pkg::INSIDE
         };
 
         //---------------
