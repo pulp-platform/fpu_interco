@@ -42,7 +42,7 @@
 
 
 
-import riscv_defines::*;
+import cv32e40p_pkg::*;
 // `define DUMMY_FPNEW
 
 module fpnew_wrapper
