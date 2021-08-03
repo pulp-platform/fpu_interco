@@ -633,7 +633,7 @@ endgenerate
            .C_FPNEW_IFMTBITS ( C_FPNEW_IFMTBITS    ),
            .C_ROUND_BITS     ( C_ROUND_BITS        ),
            .C_FPNEW_OPBITS   ( C_FPNEW_OPBITS      ),
-           .FP_DIVSQRT       ( 1                   )
+           .FP_DIVSQRT       ( 0                   )
          )
          i_fpnew_wrapper
          (
