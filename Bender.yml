@@ -8,7 +8,7 @@ package:
 
 dependencies:
   fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.4 }
-  riscv: { git: "https://github.com/pulp-platform/cv32e40p.git", rev: "pulpissimo-v3.4.0-rev2"}
+  cv32e40p: { git: "https://github.com/pulp-platform/cv32e40p.git", rev: "pulpissimo-v3.4.0-rev3"}
 
 sources:
   # Source files grouped in levels. Files in level 0 have no dependencies on files in this
