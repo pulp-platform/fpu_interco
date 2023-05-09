@@ -7,7 +7,7 @@ package:
     - "Francesco Conti <f.conti@unibo.it>"
 
 dependencies:
-  fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.7.0 }
+  fpnew: { git: "https://github.com/pulp-platform/cvpu.git", rev: pulp-v0.1.1 }
   cv32e40p: { git: "https://github.com/pulp-platform/cv32e40p.git", rev: "f67ee07376845b8b8975f86c831c5d17cffcc5cb"} # branch: safety-island-clic
 
 sources:
