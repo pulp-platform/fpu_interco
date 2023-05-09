@@ -8,7 +8,7 @@ package:
 
 dependencies:
   fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.7.0 }
-  cv32e40p: { git: "https://github.com/pulp-platform/cv32e40p.git", rev: "b26d1d6c5043bc6c535e23bf61b51313c802e44a"} # branch: michaero/safety-island-clic
+  cv32e40p: { git: "https://github.com/pulp-platform/cv32e40p.git", rev: "f67ee07376845b8b8975f86c831c5d17cffcc5cb"} # branch: safety-island-clic
 
 sources:
   # Source files grouped in levels. Files in level 0 have no dependencies on files in this
