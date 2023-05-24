@@ -114,18 +114,21 @@ module fpu_demux
 );
 
 
-    enum logic [1:0] {IDLE, WAIT_APU_RVALID, WAIT_FPNEW_RVALID, ERROR } CS, NS;
+    enum logic [1:0] {IDLE, WAIT_APU_RVALID, FPNEW_INFLIGHT, ERROR } CS, NS;
+    logic [1:0] curr_op_q, curr_op_n;
 
 
     always_ff @(posedge clk or negedge rst_n)
     begin
         if(~rst_n)
         begin
-             CS <= IDLE;
+           CS <= IDLE;
+           curr_op_q <='0;
         end
         else
         begin
-             CS <= NS;
+           CS <= NS;
+           curr_op_q <= curr_op_n;
         end
     end
 
@@ -151,6 +154,7 @@ module fpu_demux
         core_slave_gnt_o     = 1'b0;
 
         NS = CS;
+        curr_op_n = curr_op_q;
 
         case(CS)
 
@@ -168,14 +172,13 @@ module fpu_demux
 
                         core_slave_rvalid_o  = apu_rvalid_i;
                         core_slave_rdata_o   = apu_rdata_i;
-                        core_slave_rflags_o  = apu_rflags_i;                         
+                        core_slave_rflags_o  = apu_rflags_i;
 
-                        case({apu_rvalid_i,apu_gnt_i})
-                            2'b01: NS = WAIT_APU_RVALID;
-                            2'b11: NS = IDLE;
-                            2'b00: NS = IDLE;
-                            2'b10: NS = IDLE;
-                        endcase // {apu_rvalid_i,apu_gnt_i}
+                        if(!apu_rvalid_i && apu_gnt_i) begin
+                            NS = WAIT_APU_RVALID;
+                        end else begin
+                            NS = IDLE;
+                        end
                     end
 
 
@@ -187,15 +190,14 @@ module fpu_demux
 
                         core_slave_rvalid_o  = fpnew_rvalid_i;
                         core_slave_rdata_o   = fpnew_rdata_i;
-                        core_slave_rflags_o  = fpnew_rflags_i;                        
+                        core_slave_rflags_o  = fpnew_rflags_i;
 
-                        case({fpnew_rvalid_i,fpnew_gnt_i})
-                            2'b01: NS = WAIT_FPNEW_RVALID;
-                            2'b11: NS = IDLE;
-                            2'b00: NS = IDLE;
-                            2'b10: NS = IDLE;
-                        endcase // {apu_rvalid_i,apu_gnt_i}
-
+                        if (!fpnew_rvalid_i && fpnew_gnt_i) begin
+                            NS = FPNEW_INFLIGHT;
+                            curr_op_n = 2'h1;
+                        end else begin
+                            NS = IDLE;
+                        end
                     end
 
                     default:
@@ -221,7 +223,7 @@ module fpu_demux
             begin
                 core_slave_rvalid_o  = apu_rvalid_i;
                 core_slave_rdata_o   = apu_rdata_i;
-                core_slave_rflags_o  = apu_rflags_i;  
+                core_slave_rflags_o  = apu_rflags_i;
 
                 if(apu_rvalid_i)
                 begin
@@ -235,22 +237,31 @@ module fpu_demux
 
             end
 
-            WAIT_FPNEW_RVALID:
-            begin
+          FPNEW_INFLIGHT: begin
+
+                fpnew_req_o       = core_slave_req_i && (core_slave_type_i == FPNEW_ID);
+                core_slave_gnt_o  = fpnew_gnt_i;
+                fpnew_rready_o    = core_slave_rready_i;
+
                 core_slave_rvalid_o  = fpnew_rvalid_i;
                 core_slave_rdata_o   = fpnew_rdata_i;
-                core_slave_rflags_o  = fpnew_rflags_i;  
+                core_slave_rflags_o  = fpnew_rflags_i;
 
-                if(fpnew_rvalid_i)
-                begin
+                if( fpnew_rvalid_i && !fpnew_req_o && (curr_op_q == 1) ) begin
                     NS = IDLE;
+                    curr_op_n = '0;
+                end else begin
+                    NS = FPNEW_INFLIGHT;
+                    if (fpnew_rvalid_i) begin
+                        if (fpnew_gnt_i && fpnew_req_o) begin
+                            curr_op_n = curr_op_q;
+                        end else begin
+                            curr_op_n = curr_op_q - 1;
+                        end
+                    end else if (fpnew_gnt_i && fpnew_req_o) begin
+                        curr_op_n = curr_op_q + 1;
+                    end
                 end
-                else
-                begin
-                    NS = WAIT_FPNEW_RVALID;
-                end
-
-
             end
 
 
@@ -260,7 +271,7 @@ module fpu_demux
             begin
                 core_slave_rvalid_o  = 1'b1;
                 core_slave_rdata_o   = 32'hBAD_F7_ACC;
-                core_slave_rflags_o  = '0;  
+                core_slave_rflags_o  = '0;
                 NS                   = IDLE;
             end
 
