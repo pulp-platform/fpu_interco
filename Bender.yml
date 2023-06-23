@@ -7,7 +7,7 @@ package:
     - "Francesco Conti <f.conti@unibo.it>"
 
 dependencies:
-  fpnew: { git: "https://github.com/pulp-platform/fpnew.git", version: 0.6.4 }
+  fpnew: { git: "https://github.com/pulp-platform/cvfpu.git", rev: "pulp-v0.1.2" }
   cv32e40p: { git: "https://github.com/pulp-platform/cv32e40p.git", rev: "shaheen-v0.0"}
 
 sources:
