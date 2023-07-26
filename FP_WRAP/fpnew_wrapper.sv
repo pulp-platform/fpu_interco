@@ -42,10 +42,10 @@
 
 
 
-import cv32e40p_pkg::*;
 // `define DUMMY_FPNEW
 
 module fpnew_wrapper
+  import riscv_defines::*;
 #(
   parameter ID_WIDTH         = 9,
   parameter NB_ARGS          = 2,
