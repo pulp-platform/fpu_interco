@@ -101,7 +101,7 @@ module fpnew_wrapper
          end
    `else
 
-        localparam C_DIV = FP_DIVSQRT ? fpnew_pkg::MERGED : fpnew_pkg::DISABLED;
+         localparam fpnew_pkg::unit_type_t C_DIV = FP_DIVSQRT ? fpnew_pkg::MERGED : fpnew_pkg::DISABLED;
 
          logic [C_FPNEW_OPBITS-1:0]   fpu_op;
          logic                        fpu_op_mod;
