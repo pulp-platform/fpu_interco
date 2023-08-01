@@ -8,7 +8,7 @@ package:
 
 dependencies:
   fpnew: { git: "https://github.com/pulp-platform/cvfpu.git", rev: pulp-v0.1.1 }
-  cv32e40p: { git: "https://github.com/pulp-platform/cv32e40p.git", rev: "9b77611" } # branch: `michaero/safety-island-clic`
+  riscv: { git: "git@github.com:AlSaqr-platform/riscv_nn.git", rev: dd086242d10f248b4051a1fc67ae2b35b989c29c } # branch: yt/hmr
 
 sources:
   # Source files grouped in levels. Files in level 0 have no dependencies on files in this
