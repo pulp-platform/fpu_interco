@@ -7,8 +7,8 @@ package:
     - "Francesco Conti <f.conti@unibo.it>"
 
 dependencies:
-  fpnew: { git: "https://github.com/pulp-platform/cvfpu.git", rev: pulp-v0.1.1 }
-  riscv: { git: "git@github.com:AlSaqr-platform/riscv_nn.git", rev: dd086242d10f248b4051a1fc67ae2b35b989c29c } # branch: yt/hmr
+  fpnew: { git: "https://github.com/pulp-platform/cvfpu.git", rev: pulp-v0.1.3 }
+  riscv: { git: "git@github.com:AlSaqr-platform/riscv_nn.git", rev: a1dcae35edae6092ddbf92c424690cb903b678d5 } # branch: yt/hmr
 
 sources:
   # Source files grouped in levels. Files in level 0 have no dependencies on files in this
